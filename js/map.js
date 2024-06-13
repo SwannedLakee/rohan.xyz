@@ -3,6 +3,7 @@ var active_city = document.querySelector('h2.active').getAttribute('data-city');
 const CITIES = {
 	SF: [37.791, -122.448],
 	BOM: [18.982, 72.833],
+	LDN: [51.5073, -0.127647]
 };
 
 const MAP_LAYERS = {
@@ -21,7 +22,7 @@ function initializeMap() {
 		style: MAP_LAYERS[currentLayer],
 		center: flip(CITIES[active_city]),
 		zoom: 12,
-		maxZoom: 16,
+		// maxZoom: 16,
 		minZoom: 9,
 		attributionControl: false,
 	});
@@ -64,8 +65,8 @@ function addStyleLayer(name, opacity) {
 		source: name,
 		paint: {
 			'line-color': document.documentElement.style.getPropertyValue('--c-3'),
-			'line-width': ['interpolate', ['linear'], ['zoom'], 11, 1, 12, 2],
-			'line-opacity': opacity || ['interpolate', ['linear'], ['zoom'], 11, .4, 15, .8]
+			'line-width': ['interpolate', ['linear'], ['zoom'], 10, 1, 12, 2.5, 15, 3],
+			'line-opacity': opacity || ['interpolate', ['linear'], ['zoom'], 11, .5, 15, .8]
 		}
 	});
 }
@@ -86,7 +87,7 @@ function drawSingle(pathID, noAnimation) {
 	
 	sources.push('active-snake')
 	map.addSource('active-snake', {type: 'geojson', data: geo});
-	addStyleLayer('active-snake', .9);
+	addStyleLayer('active-snake', 1);
 
 	if (noAnimation) return dist.innerText = (getDistance(pathID)/1000).toFixed(1);
 
